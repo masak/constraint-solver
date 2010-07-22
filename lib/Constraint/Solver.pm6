@@ -1,7 +1,7 @@
 module Constraint::Solver;
 
 grammar Constraint::Perl6 {
-    regex TOP { ^ <pragma>* <declaration>* $ }
+    regex TOP { ^ <.ws> <pragma>* <declaration>* $ }
 
     rule pragma { 'use' <modname> ';' }
     token modname { \w+ }
