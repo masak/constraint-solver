@@ -20,14 +20,14 @@ sub solve($specification) is export {
     my @code-end = "\}";
     my @variables;
 
-    for $/<pragma> -> $pragma {
+    for $/<pragma>.list -> $pragma {
         given ~$pragma<modname> {
             when 'distinct' { $use-distinct = True }
             default { die "Unknown pragma '$_'" }
         }
     }
 
-    for $/<declaration> -> $decl {
+    for $/<declaration>.list -> $decl {
         my $range = $decl<range>.trim;
         my $varname = $decl<varname>.trim;
         push @code-start, "for $range -> $varname \{";
