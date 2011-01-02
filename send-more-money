@@ -1,0 +1,67 @@
+use v6;
+
+#     S E N D
+# +   M O R E
+# -----------
+#   M O N E Y
+
+# my 0..9 $D;
+# my 0..9 $E where ($N + $R + $!C1 % 10);
+# my      $Y = ($D + $E) % 10;
+# my      $!C1 = ($D + $E) div 10;
+# my 0..9 $N;
+# my 0..9 $R;
+# my      $!C2 = ($N + $R + $!C1) div 10;
+# my 0..9 $O where ($S + $M + $!C3) % 10;
+# my      $!C3 = ($E + $O + $!C2) div 10;
+# my 1..9 $S;
+# my 1..9 $M where $!C4;
+# my      $!C4 = ($S + $M + $!C3) div 10;
+
+# $D      0..9
+# $E      0..9  > ($N + $R + $!C1) % 10
+# $Y              ($D + $E) % 10
+# $!C1            ($D + $E) div 10
+# $N      0..9
+# $R      0..9
+# $!C2            ($N + $R + $!C1) div 10
+# $O      0..9  > ($S + $M + $!C3) % 10
+# $!C3            ($E + $O + $!C2) div 10
+# $S      1..9
+# $M      1..9  > $!C4
+# $!C4            ($S + $M + $!C3) div 10
+
+# SLOW! 30min?
+
+# for 0..9 -> $D {
+#     say "D: $D";
+#     for 0..9 -> $E {
+#         say "  E: $E";
+#         next if $D == $E;
+#         my $Y = ($D + $E) % 10;
+#         next if $Y == any $D, $E;
+#         my $pC1 = ($D + $E) div 10;
+#         for 0..9 -> $N {
+#             next if $N == any $D, $E, $Y;
+#             for 0..9 -> $R {
+#                 next if $R == any $D, $E, $Y, $N;
+#                 next unless $E == ($N + $R + $pC1) % 10;
+#                 my $pC2 = ($N + $R + $pC1) div 10;
+#                 for 0..9 -> $O {
+#                     next if $O == any $D, $E, $Y, $N, $R;
+#                     my $pC3 = ($E + $O + $pC2) div 10;
+#                     for 1..9 -> $S {
+#                         next if $S == any $D, $E, $Y, $N, $R, $O;
+#                         for 1..9 -> $M {
+#                             next if $M == any $D, $E, $Y, $N, $R, $O, $M;
+#                             next unless ($S + $M + $pC3) % 10;
+#                             my $pC4 = ($S + $M + $pC3) div 10;
+#                             next unless $M == $pC4;
+#                             say { :$D, :$E, :$Y, :$N, :$R, :$O, :$M }.perl;
+#                         }
+#                     }
+#                 }
+#             }
+#         }
+#     }
+# }
